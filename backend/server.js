@@ -1,18 +1,37 @@
 import express from "express";
 import authRoutes from "./routes/auth.routes.js";
 import dotenv from "dotenv";
+import connectToMongoDb from "./db/connectToMongoDb.js";
 dotenv.config();
 
 const app = express();
-
 const PORT = process.env.PORT || 5000;
 
+app.use(express.json());
+
 app.get("/", (req, res) => {
-  res.send("Hello from the backend");
+  res.send("Hi from the backend");
 });
 
 app.use("/api/auth", authRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+const startServer = async () => {
+  await connectToMongoDb();
+
+  return new Promise((resolve, reject) => {
+    const server = app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+      resolve(server);
+    });
+
+    // Si Express rencontre une erreur au démarrage (ex: port occupé)
+    server.on("error", (err) => {
+      reject(err);
+    });
+  });
+};
+
+startServer().catch((error) => {
+  console.error("Failed to start server:", error.message);
+  process.exit(1);
 });
