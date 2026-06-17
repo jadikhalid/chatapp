@@ -1,0 +1,4 @@
+PORT=5000	
+MONGO_DB_URI=mongodb+srv://jadikhalid_db_user:uPSBkOyOS3CwKPj4@cluster0.f05xm6h.mongodb.net/new-chat-app-db?appName=Cluster0
+JWT_SECRET=KDw31YtkEaJBvgRTVxzgiKDDJLaSbZOFKc7vqiJmiv8=
+NODE_ENV=development
