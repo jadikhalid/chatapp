@@ -1,6 +1,7 @@
 import express from "express";
 import authRoutes from "./routes/auth.routes.js";
-import messageRoutes from "./routes/message.routes.js";
+import messageRoutes from "./routes/messages.routes.js";
+import userRoutes from "./routes/user.routes.js";
 import dotenv from "dotenv";
 import connectToMongoDb from "./db/connectToMongoDb.js";
 dotenv.config();
@@ -19,6 +20,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
+app.use("/api/users", userRoutes);
 
 const startServer = async () => {
   await connectToMongoDb();
