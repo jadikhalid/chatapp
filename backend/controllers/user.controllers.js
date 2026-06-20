@@ -6,7 +6,7 @@ export const getUsersForSidebar = async (req, res) => {
 
     // Fetch all users except the current user
     const users = await User.find({ _id: { $ne: currentUserId } }).select(
-      "fullName username profilePic",
+      "-password",
     );
     res.status(200).json(users);
   } catch (error) {
