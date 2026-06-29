@@ -22,7 +22,7 @@ const useSignup = () => {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/api/auth/signup", {
+      const res = await fetch("/api/auth/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -36,9 +36,15 @@ const useSignup = () => {
         }),
       });
       const data = await res.json();
-      console.log(data);
+      if (data.error) {
+        throw new Error(data.error);
+      }
+      console.log("Ca marche", data);
+
+      // locaStorage
+      // Context
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error.message);
     } finally {
       setLoading(false);
     }
